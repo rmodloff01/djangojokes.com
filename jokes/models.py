@@ -14,7 +14,7 @@ class Joke(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def get_absolute_url(self):
-        return reverse('jokes:detail', args=[str(self.pk)])
+        return reverse('jokes:detail', args=[self.slug])
 
     def save(self, *args, **kwargs):
         if not self.slug:

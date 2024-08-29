@@ -5,6 +5,7 @@ from common.admin import DjangoJokesAdmin
 from common.utils.admin import append_fields, move_fields, remove_fields
 from django.utils.safestring import mark_safe
 from django.urls import reverse
+from allauth.socialaccount.models import SocialApp, SocialAccount, SocialToken
 
 CustomUser = get_user_model()
 
@@ -44,3 +45,7 @@ class CustomUserAdmin(DjangoJokesAdmin, UserAdmin):
     def password_form(self, obj):
         url = reverse('admin:auth_user_password_change', args=[obj.pk])
         return mark_safe(f'<a href="{url}">Change Password</a>')
+    
+admin.site.unregister(SocialApp)
+admin.site.unregister(SocialAccount)
+admin.site.unregister(SocialToken)

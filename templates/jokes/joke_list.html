@@ -8,6 +8,7 @@
   </div>
   <div class="col-12 col-md-8 col-lg-6">
     <form class="my-2 mx-auto" style="max-width: 30rem;">
+      <input type="hidden" name="q" value="{{ request.GET.q }}">
       <label class="my-1 me-2" for="order">Order By:</label>
       <select class="form-control me-sm-2" name="order" id="order">
         {% for field in order_fields %}
@@ -62,6 +63,7 @@
           {% else %}
             <th><a href="?order=creator&direction=asc">Creator</a></th>
           {% endif %}
+          <th>Rating</th>
         </tr>
       {% endwith %}
     </thead>
@@ -94,6 +96,12 @@
             by {{ joke.user.username }}
           </small>
           {% endif %}
+        </td>
+        <td>
+          <div id="rating-container" title="{{ joke.rating }}">
+            <div id="rating" style="width:{% widthratio joke.rating 10 100 %}%;"></div>
+          </div>
+          ({{ joke.num_votes }} vote{{ joke.num_votes|pluralize }})
         </td>
       </tr>
       {% endfor %}

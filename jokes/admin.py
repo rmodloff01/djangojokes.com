@@ -1,9 +1,9 @@
 from django.contrib import admin
-
-from .models import Category, Joke, JokeVote, Tag
+from common.admin import DjangoJokesAdmin
+from .models import Category, Joke, Tag
 
 @admin.register(Joke)
-class JokeAdmin(admin.ModelAdmin):
+class JokeAdmin(DjangoJokesAdmin):
     model = Joke
     list_display = ['question', 'created', 'updated']
 
@@ -31,14 +31,4 @@ class TagAdmin(admin.ModelAdmin):
     def get_readonly_fields(self, request, obj=None):
         if obj: # editing an existing object
             return ('slug', 'created', 'updated')
-        return ()
-    
-@admin.register(JokeVote)
-class JokeVoteAdmin(admin.ModelAdmin):
-    model = JokeVote
-    list_display = ['joke', 'user', 'vote']
-
-    def get_readonly_fields(self, request, obj=None):
-        if obj: # editing an existing object
-            return ('created', 'updated')
         return ()

@@ -72,7 +72,9 @@
           <a href="{{ joke.get_absolute_url }}">{{ joke.question }}</a>
         </td>
         <td>
-          {{ joke.category.category }}<br>
+          <a href="{% url 'jokes:category' joke.category.slug %}?order={{ order }}&direction={{ direction }}">
+            {{ joke.category.category }}
+          </a><br>
           {% for tag in joke.tags.all %}
           <span class="badge rounded-pill bg-secondary">
             {{ tag.tag }}
